@@ -25,7 +25,7 @@ const Footer = () => {
     },
     {
       name: 'Website',
-      url: '#',
+      url: 'https://portfolio-faizan707s-projects.vercel.app/',
       icon: Globe
     }
   ];

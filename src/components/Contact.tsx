@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Contact = () => {
+  const { theme } = useTheme()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -113,8 +115,21 @@ const Contact = () => {
     }
   ];
 
+  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
+  const grayText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const grayTextLight = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const borderColor = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+  const borderHover = theme === 'dark' ? 'hover:border-white' : 'hover:border-gray-900'
+  const iconColor = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const iconHover = theme === 'dark' ? 'group-hover:text-white' : 'group-hover:text-gray-900'
+  const inputBorder = theme === 'dark' ? 'border-gray-600' : 'border-gray-400'
+  const inputFocus = theme === 'dark' ? 'focus:border-white' : 'focus:border-gray-900'
+  const buttonBorder = theme === 'dark' ? 'border-white' : 'border-gray-900'
+  const buttonHover = theme === 'dark' ? 'hover:bg-white hover:text-black' : 'hover:bg-gray-900 hover:text-white'
+
   return (
-    <section className="w-full bg-black py-12 md:py-16 px-4 md:px-6" id="contact">
+    <section className={`w-full ${bgColor} py-12 md:py-16 px-4 md:px-6`} id="contact">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           {/* Left Section - Contact Info */}
@@ -126,13 +141,13 @@ const Contact = () => {
             className="space-y-8"
           >
             <div>
-              <p className="text-gray-400 text-sm uppercase tracking-wide mb-2">
+              <p className={`${grayTextLight} text-sm uppercase tracking-wide mb-2`}>
                 Contact me
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className={`text-4xl md:text-5xl font-bold ${textColor} mb-6`}>
                 Get in touch
               </h2>
-              <p className="text-gray-300 text-lg leading-relaxed">
+              <p className={`${grayText} text-lg leading-relaxed`}>
                 It is very important for us to keep in touch with you, so we are always ready to answer any question that interests you.
               </p>
             </div>
@@ -149,10 +164,10 @@ const Contact = () => {
                     rel={social.name === 'Email' ? undefined : 'noopener noreferrer'}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 flex items-center justify-center rounded-full border border-gray-700 hover:border-white transition-colors group"
+                    className={`w-12 h-12 flex items-center justify-center rounded-full border ${borderColor} ${borderHover} transition-colors group`}
                     aria-label={social.name}
                   >
-                    <IconComponent className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+                    <IconComponent className={`w-6 h-6 ${iconColor} ${iconHover} transition-colors`} />
                   </motion.a>
                 );
               })}
@@ -170,95 +185,95 @@ const Contact = () => {
               {/* Full Name and Email Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="fullName" className="block text-white text-sm mb-2">
-                    Full name
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none pb-2 transition-colors"
-                    placeholder=""
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-white text-sm mb-2">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none pb-2 transition-colors"
-                    placeholder=""
-                  />
-                </div>
-              </div>
+                      <label htmlFor="fullName" className={`block ${textColor} text-sm mb-2`}>
+                        Full name
+                      </label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        required
+                        className={`w-full bg-transparent border-b ${inputBorder} ${textColor} ${inputFocus} focus:outline-none pb-2 transition-colors`}
+                        placeholder=""
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className={`block ${textColor} text-sm mb-2`}>
+                        Email address
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className={`w-full bg-transparent border-b ${inputBorder} ${textColor} ${inputFocus} focus:outline-none pb-2 transition-colors`}
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
 
-              {/* Phone and Subject Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="phone" className="block text-white text-sm mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none pb-2 transition-colors"
-                    placeholder=""
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block text-white text-sm mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none pb-2 transition-colors"
-                    placeholder=""
-                  />
-                </div>
-              </div>
+                  {/* Phone and Subject Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="phone" className={`block ${textColor} text-sm mb-2`}>
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className={`w-full bg-transparent border-b ${inputBorder} ${textColor} ${inputFocus} focus:outline-none pb-2 transition-colors`}
+                        placeholder=""
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="subject" className={`block ${textColor} text-sm mb-2`}>
+                        Subject
+                      </label>
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className={`w-full bg-transparent border-b ${inputBorder} ${textColor} ${inputFocus} focus:outline-none pb-2 transition-colors`}
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
 
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="block text-white text-sm mb-2">
-                  Write your message here
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  className="w-full bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none pb-2 resize-none transition-colors"
-                  placeholder=""
-                />
-              </div>
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className={`block ${textColor} text-sm mb-2`}>
+                      Write your message here
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      className={`w-full bg-transparent border-b ${inputBorder} ${textColor} ${inputFocus} focus:outline-none pb-2 resize-none transition-colors`}
+                      placeholder=""
+                    />
+                  </div>
 
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full md:w-auto px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full md:w-auto px-8 py-3 bg-transparent border-2 ${buttonBorder} ${textColor} font-semibold rounded-md ${buttonHover} transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
+                  >
                 {isSubmitting ? (
                   <>
                     <span>Sending...</span>

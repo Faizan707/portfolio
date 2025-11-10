@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { theme } = useTheme();
 
   const projects = [
     {
@@ -44,12 +46,28 @@ const Projects = () => {
 
   const currentProject = projects[currentIndex];
 
+  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
+  const cardBg = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+  const cardBorder = theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
+  const imageBg = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+  const categoryText = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const descText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const techBg = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'
+  const techBorder = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+  const techText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const buttonBg = theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+  const buttonText = theme === 'dark' ? 'text-gray-800' : 'text-white'
+  const buttonHover = theme === 'dark' ? 'hover:bg-gray-100' : 'hover:bg-gray-800'
+  const navButtonBg = theme === 'dark' ? 'bg-black/80 hover:bg-black' : 'bg-white/80 hover:bg-white'
+  const navButtonBorder = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+
   return (
-    <section id="projects" className="w-full bg-black py-12 md:py-16 px-4 md:px-6">
+    <section id="projects" className={`w-full ${bgColor} py-12 md:py-16 px-4 md:px-6`}>
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className={`text-4xl md:text-5xl font-bold ${textColor} mb-4`}>
             My  Projects
           </h2>
         </div>
@@ -63,10 +81,10 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800"
+              className={`${cardBg} rounded-xl overflow-hidden border ${cardBorder}`}
             >
               {/* Project Image */}
-              <div className="relative w-full h-[250px] bg-gray-800 overflow-hidden">
+              <div className={`relative w-full h-[250px] ${imageBg} overflow-hidden`}>
                 <Image
                   src={project.image}
                   alt={project.name}
@@ -82,30 +100,30 @@ const Projects = () => {
               </div>
 
               {/* Project Info */}
-              <div className="p-4 bg-gray-900">
+              <div className={`p-4 ${cardBg}`}>
                 {/* Category */}
-                <p className="text-gray-400 text-xs font-medium uppercase tracking-wide mb-2">
+                <p className={`${categoryText} text-xs font-medium uppercase tracking-wide mb-2`}>
                   {project.category}
                 </p>
                 
                 {/* Project Name */}
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className={`text-lg font-bold ${textColor} mb-2`}>
                   {project.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                <p className={`${descText} text-sm leading-relaxed mb-3`}>
                   {project.description}
                 </p>
 
                 {/* Tech Stack */}
                 <div className="mb-3">
-                  <p className="text-gray-400 text-xs mb-2 font-medium">Tech Stack:</p>
+                  <p className={`${categoryText} text-xs mb-2 font-medium`}>Tech Stack:</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded-md border border-gray-700"
+                        className={`px-2 py-1 ${techBg} ${techText} text-xs rounded-md border ${techBorder}`}
                       >
                         {tech}
                       </span>
@@ -118,7 +136,7 @@ const Projects = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 whitespace-nowrap bg-white text-gray-800 px-4 py-2 rounded-md font-semibold hover:bg-gray-100 transition-colors cursor-pointer text-sm"
+                  className={`inline-flex items-center gap-2 whitespace-nowrap ${buttonBg} ${buttonText} px-4 py-2 rounded-md font-semibold ${buttonHover} transition-colors cursor-pointer text-sm`}
                 >
                   <span>Visit Website</span>
                   <ExternalLink className="w-3 h-3" />
@@ -133,9 +151,9 @@ const Projects = () => {
           {/* Previous Button - Outside Container */}
           <motion.button
             onClick={prevProject}
-            whileHover={{ scale: 1.1, backgroundColor: 'rgba(0, 0, 0, 1)' }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="shrink-0 w-12 h-12 bg-black/80 hover:bg-black rounded-full flex items-center justify-center text-white border border-gray-700 backdrop-blur-sm shadow-lg cursor-pointer"
+            className={`shrink-0 w-12 h-12 ${navButtonBg} rounded-full flex items-center justify-center ${textColor} border ${navButtonBorder} backdrop-blur-sm shadow-lg cursor-pointer`}
             aria-label="Previous project"
           >
             <motion.div
@@ -160,10 +178,10 @@ const Projects = () => {
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-gray-700 transition-all"
+                  className={`${cardBg} rounded-xl overflow-hidden border ${cardBorder} ${theme === 'dark' ? 'hover:border-gray-700' : 'hover:border-gray-400'} transition-all`}
                 >
                   {/* Project Image */}
-                  <div className="relative w-full h-[500px] bg-gray-800 overflow-hidden">
+                  <div className={`relative w-full h-[500px] ${imageBg} overflow-hidden`}>
                     <motion.div
                       initial={{ scale: 1.1, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -188,25 +206,25 @@ const Projects = () => {
                   </div>
 
                   {/* Project Info */}
-                  <div className="p-6 bg-gray-900">
+                  <div className={`p-6 ${cardBg}`}>
                     {/* Category */}
-                    <p className="text-gray-400 text-sm font-medium uppercase tracking-wide mb-2">
+                    <p className={`${categoryText} text-sm font-medium uppercase tracking-wide mb-2`}>
                       {currentProject.category}
                     </p>
                     
                     {/* Project Name */}
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+                    <h3 className={`text-xl md:text-2xl font-bold ${textColor} mb-3`}>
                       {currentProject.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-300 text-base leading-relaxed mb-4">
+                    <p className={`${descText} text-base leading-relaxed mb-4`}>
                       {currentProject.description}
                     </p>
 
                     {/* Tech Stack */}
                     <div className="mb-4">
-                      <p className="text-gray-400 text-sm mb-2 font-medium">Tech Stack:</p>
+                      <p className={`${categoryText} text-sm mb-2 font-medium`}>Tech Stack:</p>
                       <div className="flex flex-wrap gap-2">
                         {currentProject.tech.map((tech, index) => (
                           <motion.span
@@ -218,12 +236,8 @@ const Projects = () => {
                               type: 'spring',
                               stiffness: 200
                             }}
-                            whileHover={{ 
-                              scale: 1.05,
-                              backgroundColor: 'rgba(55, 65, 81, 1)',
-                              borderColor: 'rgba(107, 114, 128, 1)'
-                            }}
-                            className="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded-md border border-gray-700 cursor-default transition-colors"
+                            whileHover={{ scale: 1.05 }}
+                            className={`px-3 py-1.5 ${techBg} ${techText} text-sm rounded-md border ${techBorder} cursor-default transition-colors`}
                           >
                             {tech}
                           </motion.span>
@@ -236,7 +250,7 @@ const Projects = () => {
                       href={currentProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 whitespace-nowrap bg-white text-gray-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors cursor-pointer group"
+                      className={`inline-flex items-center gap-2 whitespace-nowrap ${buttonBg} ${buttonText} px-6 py-3 rounded-md font-semibold ${buttonHover} transition-colors cursor-pointer group`}
                     >
                       <span>Visit Website</span>
                       <motion.div
@@ -256,9 +270,9 @@ const Projects = () => {
           {/* Next Button - Outside Container */}
           <motion.button
             onClick={nextProject}
-            whileHover={{ scale: 1.1, backgroundColor: 'rgba(0, 0, 0, 1)' }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="shrink-0 w-12 h-12 bg-black/80 hover:bg-black rounded-full flex items-center justify-center text-white border border-gray-700 backdrop-blur-sm shadow-lg cursor-pointer"
+            className={`shrink-0 w-12 h-12 ${navButtonBg} rounded-full flex items-center justify-center ${textColor} border ${navButtonBorder} backdrop-blur-sm shadow-lg cursor-pointer`}
             aria-label="Next project"
           >
             <motion.div

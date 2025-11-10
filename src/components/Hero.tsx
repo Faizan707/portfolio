@@ -1,22 +1,30 @@
 'use client'
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useTheme } from '../contexts/ThemeContext'
 
 function Hero() {
+  const { theme } = useTheme()
   const name = "I'm Muhammad Faizan"
   const nameArray = name.split('')
 
+  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
+  const grayText = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const grayTextLight = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const shadowColor = theme === 'dark' ? 'bg-white opacity-10' : 'bg-gray-900 opacity-5'
+
   return (
-    <section id="home" className="bg-black text-white min-h-screen flex items-center justify-center px-4 md:px-6 relative overflow-hidden">
-      {/* Light white shadow in center */}
+    <section id="home" className={`${bgColor} ${textColor} min-h-screen flex items-center justify-center px-4 md:px-6 relative overflow-hidden`}>
+      {/* Light shadow in center */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[800px] bg-white opacity-10 rounded-full blur-[100px]"></div>
+        <div className={`w-[800px] h-[800px] ${shadowColor} rounded-full blur-[100px]`}></div>
       </div>
       
       <div className="text-center max-w-4xl relative z-10">
         {/* Location */}
         <motion.div 
-          className="flex items-center justify-center gap-2 mb-4 text-gray-400"
+          className={`flex items-center justify-center gap-2 mb-4 ${grayText}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
@@ -77,7 +85,7 @@ function Hero() {
 
         {/* Description */}
         <motion.p 
-          className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+          className={`text-lg md:text-xl ${grayTextLight} mb-8 max-w-2xl mx-auto`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
@@ -96,7 +104,10 @@ function Hero() {
         >
           <motion.a 
             href="#contact"
-            className="bg-white text-gray-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+            className={theme === 'dark' 
+              ? "bg-white text-gray-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+              : "bg-gray-900 text-white px-6 py-3 rounded-md font-semibold hover:bg-gray-800 transition-colors cursor-pointer"
+            }
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -104,7 +115,10 @@ function Hero() {
           </motion.a>
           <motion.a 
             href="#services"
-            className="bg-gray-800 text-white px-6 py-3 rounded-md font-semibold hover:bg-gray-700 transition-colors cursor-pointer"
+            className={theme === 'dark'
+              ? "bg-gray-800 text-white px-6 py-3 rounded-md font-semibold hover:bg-gray-700 transition-colors cursor-pointer"
+              : "bg-gray-200 text-gray-900 px-6 py-3 rounded-md font-semibold hover:bg-gray-300 transition-colors cursor-pointer"
+            }
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -2,8 +2,10 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useTheme } from '../contexts/ThemeContext'
 
 function TechnologiesSlider() {
+  const { theme } = useTheme()
   const technologies = [
     'HTML',
     'CSS',
@@ -30,10 +32,16 @@ function TechnologiesSlider() {
   // Duplicate the array for seamless loop (only for desktop animation)
   const duplicatedTechnologies = [...technologies, ...technologies]
 
+  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const textColor = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const cardBg = theme === 'dark' ? 'bg-black' : 'bg-gray-50'
+  const cardBorder = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+  const cardText = theme === 'dark' ? 'text-white' : 'text-gray-900'
+
   return (
-    <section className="w-full bg-black py-8 md:py-12 px-4 md:px-6">
+    <section className={`w-full ${bgColor} py-8 md:py-12 px-4 md:px-6`}>
       {/* Heading */}
-      <h2 className="text-center text-gray-300 text-2xl md:text-3xl font-semibold mb-8">
+      <h2 className={`text-center ${textColor} text-2xl md:text-3xl font-semibold mb-8`}>
         Technologies I use
       </h2>
 
@@ -47,9 +55,9 @@ function TechnologiesSlider() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="px-4 py-3 bg-black rounded-lg border border-gray-700 text-center"
+              className={`px-4 py-3 ${cardBg} rounded-lg border ${cardBorder} text-center`}
             >
-              <span className="text-white text-sm font-medium">{tech}</span>
+              <span className={`${cardText} text-sm font-medium`}>{tech}</span>
             </motion.div>
           ))}
         </div>
@@ -71,9 +79,9 @@ function TechnologiesSlider() {
           {duplicatedTechnologies.map((tech, index) => (
             <div
               key={index}
-              className="shrink-0 px-6 py-3 bg-black rounded-lg border border-gray-700 whitespace-nowrap"
+              className={`shrink-0 px-6 py-3 ${cardBg} rounded-lg border ${cardBorder} whitespace-nowrap`}
             >
-              <span className="text-white text-base md:text-lg font-medium">{tech}</span>
+              <span className={`${cardText} text-base md:text-lg font-medium`}>{tech}</span>
             </div>
           ))}
         </motion.div>

@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 import { 
   SiHtml5, 
   SiCss3, 
@@ -93,13 +94,15 @@ const OrbitSystem = ({
   title,
   borderColor,
   centerColor,
-  baseDuration
+  baseDuration,
+  theme
 }: {
   rings: { category: string; techs: string[] }[];
   title: string;
   borderColor: string;
   centerColor: string;
   baseDuration: number;
+  theme: 'light' | 'dark';
 }) => {
   const getRingRadius = (ringIndex: number, totalRings: number) => {
     // Responsive radius based on container size
@@ -112,9 +115,17 @@ const OrbitSystem = ({
     return minRadius + (ringIndex * spacing);
   };
 
+  const titleColor = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+  const iconBg = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const iconBorder = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+  const tooltipBg = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'
+  const tooltipText = theme === 'dark' ? 'text-white' : 'text-gray-900'
+  const tooltipGray = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+  const tooltipBorder = theme === 'dark' ? 'border-t-gray-800' : 'border-t-gray-200'
+
   return (
     <div className="flex flex-col items-center justify-center relative">
-      <h3 className="text-xl md:text-2xl font-semibold text-gray-300 mb-8 z-10">
+      <h3 className={`text-xl md:text-2xl font-semibold ${titleColor} mb-8 z-10`}>
         {title}
       </h3>
       
@@ -128,7 +139,7 @@ const OrbitSystem = ({
             transform: 'translate(-50%, -50%)',
           }}
         >
-          <Code className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" />
+          <Code className={`w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`} />
       </div>
 
         {rings.map((ring, ringIndex) => {
@@ -177,7 +188,7 @@ const OrbitSystem = ({
                     }}
                   >
                     <div 
-                      className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-black rounded-full border-2 border-gray-700 flex items-center justify-center hover:scale-110 transition-all cursor-pointer group relative"
+                      className={`w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 ${iconBg} rounded-full border-2 ${iconBorder} flex items-center justify-center hover:scale-110 transition-all cursor-pointer group relative`}
                 style={{
                         boxShadow: `0 0 20px ${iconColor}40`,
                       }}
@@ -198,12 +209,12 @@ const OrbitSystem = ({
                       </div>
                       {/* Tooltip with tech name and category */}
                       <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
-                        <div className="bg-gray-800 text-white text-xs px-3 py-2 rounded whitespace-nowrap shadow-lg">
+                        <div className={`${tooltipBg} ${tooltipText} text-xs px-3 py-2 rounded whitespace-nowrap shadow-lg`}>
                           <div className="font-semibold">{tech}</div>
-                          <div className="text-gray-400 text-[10px] mt-0.5">{ring.category}</div>
+                          <div className={`${tooltipGray} text-[10px] mt-0.5`}>{ring.category}</div>
                         </div>
                         {/* Tooltip arrow */}
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+                        <div className={`absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent ${tooltipBorder}`}></div>
                       </div>
                     </div>
                 </div>
@@ -218,10 +229,14 @@ const OrbitSystem = ({
 };
 
 const OrbitAnimation = () => {
+  const { theme } = useTheme()
+  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-white'
+  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
+
   return (
-    <section className="relative w-full bg-black py-12 md:py-16 px-4 md:px-6 overflow-hidden">
+    <section className={`relative w-full ${bgColor} py-12 md:py-16 px-4 md:px-6 overflow-hidden`}>
       <motion.h2 
-        className="text-center text-white text-2xl md:text-4xl font-bold mb-12"
+        className={`text-center ${textColor} text-2xl md:text-4xl font-bold mb-12`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -242,6 +257,7 @@ const OrbitAnimation = () => {
             borderColor="border-blue-500/30"
             centerColor="bg-blue-500/20 border-2 border-blue-500/30"
             baseDuration={40}
+            theme={theme}
           />
         </motion.div>
 
@@ -257,6 +273,7 @@ const OrbitAnimation = () => {
             borderColor="border-green-500/30"
             centerColor="bg-green-500/20 border-2 border-green-500/30"
             baseDuration={50}
+            theme={theme}
           />
         </motion.div>
       </div>

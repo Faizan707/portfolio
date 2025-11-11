@@ -13,7 +13,6 @@ const Projects = () => {
     {
       name: 'Semantic Tribe',
       description: 'A portfolio website for Semantic Tribe, an IT services providing company. Built with modern web technologies to showcase their services and expertise.',
-      tech: ['Next.js', 'Framer Motion','React bootstrap','cloudinary'],
       image: '/images/semantic-tribe.png',
       link: 'https://semantictribe.com/',
       category: 'Portfolio Website'
@@ -21,7 +20,6 @@ const Projects = () => {
     {
       name: 'Dear Doggo',
       description: 'An e-commerce website for dog accessories including clothes, bracelets, glasses, and more. A complete shopping experience for pet owners.',
-      tech: ['Next.js', 'Framer Motion','Tailwind CSS','MongoDB','Mongoose','cloudinary'],
       image: '/images/dear-doggo.png',
       link: 'https://deardoggo.shop/',
       category: 'E-commerce Website'
@@ -29,7 +27,6 @@ const Projects = () => {
     {
       name: 'Art Branch',
       description: 'A social platform where artists can share their work and connect with each other. A community-driven website that enables artists to showcase their creativity and build meaningful connections.',
-      tech: ['Next.js', 'Framer Motion','Tailwind CSS','Supabase','cloudinary'],
       image: '/images/art-branch.png',
       link: 'https://artbranch.com.au/',
       category: 'Social Platform'
@@ -53,9 +50,6 @@ const Projects = () => {
   const imageBg = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
   const categoryText = theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
   const descText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-  const techBg = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'
-  const techBorder = theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
-  const techText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
   const buttonBg = theme === 'dark' ? 'bg-white' : 'bg-gray-900'
   const buttonText = theme === 'dark' ? 'text-gray-800' : 'text-white'
   const buttonHover = theme === 'dark' ? 'hover:bg-gray-100' : 'hover:bg-gray-800'
@@ -116,21 +110,7 @@ const Projects = () => {
                   {project.description}
                 </p>
 
-                {/* Tech Stack */}
-                <div className="mb-3">
-                  <p className={`${categoryText} text-xs mb-2 font-medium`}>Tech Stack:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className={`px-2 py-1 ${techBg} ${techText} text-xs rounded-md border ${techBorder}`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
+                
                 {/* Visit Button */}
                 <a
                   href={project.link}
@@ -222,28 +202,7 @@ const Projects = () => {
                       {currentProject.description}
                     </p>
 
-                    {/* Tech Stack */}
-                    <div className="mb-4">
-                      <p className={`${categoryText} text-sm mb-2 font-medium`}>Tech Stack:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {currentProject.tech.map((tech, index) => (
-                          <motion.span
-                            key={index}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ 
-                              delay: index * 0.05,
-                              type: 'spring',
-                              stiffness: 200
-                            }}
-                            whileHover={{ scale: 1.05 }}
-                            className={`px-3 py-1.5 ${techBg} ${techText} text-sm rounded-md border ${techBorder} cursor-default transition-colors`}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
+                 
 
                     {/* Visit Button */}
                     <a

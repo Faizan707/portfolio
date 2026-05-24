@@ -20,7 +20,7 @@ const EducationExperience = () => {
       detail: "Musharp",
       icon: Briefcase,
       type: "experience",
-      location: "Hybrid",
+      location: "Lahore,Pakistan(Hybrid)",
       gradient: "from-pink-500 to-rose-500",
       badge:
         theme === "dark"
